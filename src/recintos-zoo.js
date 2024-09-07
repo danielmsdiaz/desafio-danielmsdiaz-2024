@@ -11,4 +11,4 @@ class RecintosZoo {
 
 }
 
-export default RecintosZoo
+export { RecintosZoo as RecintosZoo };
