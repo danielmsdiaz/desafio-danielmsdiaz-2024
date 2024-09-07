@@ -1,5 +1,6 @@
-import animaisDisponiveis from '../data/dataAnimais';
-import recintos from '../data/dataRecintos';
+import animaisDisponiveis from '../data/dataAnimais.js';
+import recintos from '../data/dataRecintos.js';
+import Utils from '../utils/utils.js';
 
 class RecintoService {
     constructor() {
@@ -8,7 +9,7 @@ class RecintoService {
 
     analisaRecintos(nomeAnimal, quantidade) {
         const animal = animaisDisponiveis[nomeAnimal.toUpperCase()];
-
+        
         if (!animal) {
             return { erro: 'Animal inválido' };
         }
@@ -18,16 +19,18 @@ class RecintoService {
         }
 
         const recintosViaveis = this.recintos.filter(recinto => {
-            return recinto.bioma.includes(animal.bioma) && recinto.calcularEspacoLivre() >= animal.tamanho * quantidade;
-        })
-
+            return recinto.calcularEspacoLivre() >= (animal.getTamanho() * quantidade) + (recinto.todosAnimaisMesmaEspecie(animal) ? 0 : 1)
+                && Utils.verficarSeBiomaCompativel(animal.getBioma(), recinto.getBioma())
+                && Utils.verificarConfortoAnimais(animal, recinto, quantidade);
+        });
+        
         if (recintosViaveis.length === 0) {
             return { erro: 'Não há recinto viável' };
         }
 
         return {
             recintosViaveis: recintosViaveis.map(recinto =>
-                `Recinto ${recinto.numero} (espaço livre: ${recinto.calcularEspacoLivre()} total: ${recinto.tamanhoTotal})`
+                `Recinto ${recinto.getNumero()} (espaço livre: ${recinto.calcularEspacoPosInclusao(quantidade, animal)} total: ${recinto.getTamanhoTotal()})`
             ),
         };
     }

@@ -1,12 +1,12 @@
-import Recinto from "../models/Recinto";
-import Animal from "../models/Animal";
+import Recinto from "../models/Recinto.js";
+import Animal from "../models/Animal.js";
 
 const recintos = [
-    new Recinto(1, 'savana', 10, [new Animal('MACACO', 1, 'savana')]),
-    new Recinto(2, 'floresta', 5, []),
-    new Recinto(3, 'savana e rio', 7, [new Animal('GAZELA', 2, 'savana')]),
-    new Recinto(4, 'rio', 8, []),
-    new Recinto(5, 'savana', 9, [new Animal('LEAO', 3, 'savana')])
+    new Recinto(1, 'Savana', 10, [new Animal('MACACO', 1, ['Savana']), new Animal('MACACO', 1, ['Savana']), new Animal('MACACO', 1, ['Savana'])]),
+    new Recinto(2, 'Floresta', 5, []),
+    new Recinto(3, 'Savana e Rio', 7, [new Animal('GAZELA', 2, ['Savana'])]),
+    new Recinto(4, 'Rio', 8, []),
+    new Recinto(5, 'Savana', 9, [new Animal('LEAO', 3, ['Savana'], )])
 ];
 
 export default recintos
