@@ -19,7 +19,7 @@ class Recinto {
     }
 
     getAnimaisExistentes() {
-        return this.animaisExistentes || [];
+        return this.animaisExistentes;
     }
 
     todosAnimaisMesmaEspecie(animal) {
